@@ -1,4 +1,5 @@
 from .kasiski import Hasakey
+from decrypt import decrypt
 def attack(text_in: bytes, out_file_path: str):
     h = Hasakey(text_in)
     key_length = h.get_key_length()
@@ -12,4 +13,5 @@ def attack(text_in: bytes, out_file_path: str):
         most_frequent.append(max(set(subarray), key = subarray.count))
     e = 101
     key = ''.join(chr(m ^ e) for m in most_frequent)
-    print(key)
+    decrypt(text_in, out_file_path, key)
+    
