@@ -1,59 +1,49 @@
-stages:
-  - encryption
-  - decryption
-  - attack
-  - validate
+# stages:
+#   - encryption
+#   - decryption
+#   - attack
 
-image: ubuntu:22.04
+# image: ubuntu:22.04
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - .venv/
+# cache:
+#   key: ${CI_COMMIT_REF_SLUG}
+#   paths:
+#     - .venv/
 
-before_script:
-  - apt-get update -qy
-  - apt-get install -y python3 python3-pip python3.10-venv
-  - python3 -m venv .venv
-  - . .venv/bin/activate
-  - pip install -r requirements.txt
+# before_script:
+#   - apt-get update -qy
+#   - apt-get install -y python3 python3-pip python3.10-venv
+#   - python3 -m venv .venv
+#   - . .venv/bin/activate
+#   - pip install -r requirements.txt
 
-encryption:
-  stage: encryption
-  script:
-    # for each file in data directory encrypt it and save it in the encrypted directory
-    - for file in data/*; do python3 vernam.py -e -i $file -o encrypted/$(basename $file) -k Kekws; done
-  artifacts:
-    paths:
-      - encrypted/
+# encryption:
+#   stage: encryption
+#   script:
+#     # for each file in data directory encrypt it and save it in the encrypted directory
+#     - for file in data/*; do python3 vernam.py -e -i $file -o encrypted/$(basename $file) -k Kekws; done
+#   artifacts:
+#     paths:
+#       - encrypted/
 
-decryption:
-  stage: decryption
-  script:
-    # for each file in encrypted directory decrypt it and save it in the decrypted directory
-    - for file in encrypted/*; do python3 vernam.py -d -i $file -o decrypted/$(basename $file) -k Kekws; done
-  artifacts:
-    paths:
-      - decrypted/
-  dependencies:
-    - encryption
+# decryption:
+#   stage: decryption
+#   script:
+#     # for each file in encrypted directory decrypt it and save it in the decrypted directory
+#     - for file in encrypted/*; do python3 vernam.py -d -i $file -o decrypted/$(basename $file) -k Kekws; done
+#   artifacts:
+#     paths:
+#       - decrypted/
+#   dependencies:
+#     - encryption
 
-attack:
-  stage: attack
-  script:
-    # for each file in encrypted directory try to decrypt it with a wrong key and save it in the decrypted directory
-    - for file in encrypted/*; do python3 vernam.py -a -i $file -o decrypted-attack/$(basename $file); done
-  artifacts:
-    paths:
-      - decrypted-attack/
-  dependencies:
-    - encryption
-
-validate:
-  stage: validate
-  script:
-    # check if the decrypted files are the same as the original files
-    - for file in data/*; do diff decrypted-attack/$(basename $file) decrypted/$(basename $file); done
-  dependencies:
-    - decryption
-    - attack
+# attack:
+#   stage: attack
+#   script:
+#     # for each file in encrypted directory try to decrypt it with a wrong key and save it in the decrypted directory
+#     - for file in encrypted/*; do python3 vernam.py -a -i $file -o decrypted-attack/$(basename $file); done
+#   artifacts:
+#     paths:
+#       - decrypted-attack/
+#   dependencies:
+#     - encryption
