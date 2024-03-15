@@ -5,7 +5,7 @@ def attack(text_in: bytes, out_file_path: str, most_frequent_letter: str = "e", 
     key_length = h.get_key_length(depht=depht)
     print(f"Key length: {key_length}")
     text_subarrays = [[] for i in range(key_length)]
-    for i in range(0,len(text_in) -1 ,key_length):
+    for i in range(0,len(text_in) -key_length ,key_length):
         for j in range(key_length):
             text_subarrays[j].append(text_in[i + j])
     most_frequent = []
