@@ -2,6 +2,7 @@ stages:
   - encryption
   - decryption
   - attack
+  - validate
 
 image: ubuntu:22.04
 
@@ -34,14 +35,25 @@ decryption:
   artifacts:
     paths:
       - decrypted/
+  dependencies:
+    - encryption
 
 attack:
   stage: attack
   script:
     # for each file in encrypted directory try to decrypt it with a wrong key and save it in the decrypted directory
     - for file in encrypted/*; do python3 vernam.py -a -i $file -o decrypted-attack/$(basename $file); done
-    # compare the decrypted files with the original files
-    - for file in decrypted/*; do diff $file decrypted-attack/$(basename $file); done
   artifacts:
     paths:
       - decrypted-attack/
+  dependencies:
+    - encryption
+
+validate:
+  stage: validate
+  script:
+    # check if the decrypted files are the same as the original files
+    - for file in data/*; do diff decrypted-attack/$(basename $file) decrypted/$(basename $file); done
+  dependencies:
+    - decryption
+    - attack
