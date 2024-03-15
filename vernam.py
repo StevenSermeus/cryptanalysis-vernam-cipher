@@ -22,4 +22,4 @@ if __name__ == "__main__":
 
     if args.attack:
         text = open(args.input, "rb").read()
-        attack(text, args.out)
+        attack(text, args.out, most_frequent_letter=args.most_frequent_letter, ngram_size=args.ngram_size, depht=args.depht)
