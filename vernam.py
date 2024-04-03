@@ -21,5 +21,4 @@ if __name__ == "__main__":
             f.write(sanitized_text)
 
     if args.attack:
-        text = open(args.input, "rb").read()
-        attack(text, args.out, most_frequent_letter=args.most_frequent_letter, ngram_size=args.ngram_size, depht=args.depht)
+        attack(args.input, args.out, most_frequent_letter=args.most_frequent_letter, ngram_size=args.ngram_size, depth=args.depth)
