@@ -2,6 +2,7 @@ from functools import reduce
 from math import gcd
 import decrypt
 import time
+
 def attack(file_in_path : str, out_file_path: str, most_frequent_letter: str = "e", ngram_size: int = 3, depth: int = 3):
     start = time.time()
     file_in = open(file_in_path, "rb")
@@ -36,11 +37,11 @@ def attack(file_in_path : str, out_file_path: str, most_frequent_letter: str = "
         arrays_gcd.append(reduce(gcd, sub_array))
 
     key_length = max(set(arrays_gcd), key=arrays_gcd.count)
-
+    print("Key length: ", key_length)
     text_subarrays = [[] for i in range(key_length)]
 
 
-    for i in range(0,len(data) -key_length ,key_length):
+    for i in range(0,len(data) - key_length ,key_length):
         for j in range(key_length):
             text_subarrays[j].append(data[i + j])
     most_frequent = []
@@ -52,7 +53,11 @@ def attack(file_in_path : str, out_file_path: str, most_frequent_letter: str = "
     print("Key: ", key)
     time_taken_ms = ((time.time() - start) / 1000)
     print("Time taken: ", time_taken_ms, "ms")
-    text = open(file_in_path, "rb").read()
-    start_decrypt = time.time()
-    decrypt.decrypt(text, out_file_path, key)
+    with open(file_in_path, "rb") as file_in:
+        text = file_in.read()
+        start_decrypt = time.time()
+        decrypt.decrypt(text, out_file_path, key)
+        time_taken_decrypt = ((time.time() - start_decrypt) / 1000)
+        print("Time taken to decrypt: ", time_taken_decrypt, "ms")
+        print("Total time taken: ", time_taken_ms + time_taken_decrypt, "ms")
     
