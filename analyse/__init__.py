@@ -34,10 +34,11 @@ def attack(file_in_path : str, out_file_path: str, most_frequent_letter: str = "
 
     for sub_array in sub_arrays_distance:
         arrays_gcd.append(reduce(gcd, sub_array))
-    
+
     key_length = max(set(arrays_gcd), key=arrays_gcd.count)
 
     text_subarrays = [[] for i in range(key_length)]
+
 
     for i in range(0,len(data) -key_length ,key_length):
         for j in range(key_length):
@@ -49,8 +50,9 @@ def attack(file_in_path : str, out_file_path: str, most_frequent_letter: str = "
     key = ''.join(chr(m ^ ord(most_frequent_letter)) for m in most_frequent)
 
     print("Key: ", key)
-    print(f'Time taken to find key: {time.time() - start} seconds')
+    time_taken_ms = ((time.time() - start) / 1000)
+    print("Time taken: ", time_taken_ms, "ms")
     text = open(file_in_path, "rb").read()
     start_decrypt = time.time()
     decrypt.decrypt(text, out_file_path, key)
-    print(f'Time taken to decrypt: {time.time() - start_decrypt} seconds')
+    
