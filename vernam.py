@@ -3,6 +3,7 @@ from encrypt import encrypt
 from decrypt import decrypt
 from encrypt import sanitize
 from analyse import attack
+
 if __name__ == "__main__":
     args = cli()
     if args.key:
