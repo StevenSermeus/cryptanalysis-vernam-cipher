@@ -11,7 +11,7 @@ def attack(file_in_path : str, out_file_path: str, most_frequent_letter: str = "
     ngram_positions = {}
     ngram_count = {}
 
-    for i in range(len(data) - ngram_size):
+    for i in range(0,len(data) - ngram_size, ngram_size):
         ngram = data[i:i+ngram_size]
 
         if str(ngram) in ngram_count:
