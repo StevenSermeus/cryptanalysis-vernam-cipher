@@ -34,18 +34,22 @@ pip install -r requirements.txt
 ## How to use the project
 
 ```bash
+#Before running the script, you need to activate the virtual environment
+
+source .venv/bin/activate
+
 # Encrypt a file
 
-python vernam.py  -e -i <input_file> -o <output_file> -k <key_file>
+python3 vernam.py  -e -i <input_file> -o <output_file> -k <key_file>
 ```
 
 ```bash
 # Decrypt a file
 
-python vernam.py-d -i <input_file> -o <output_file> -k <key_file>
+python3 vernam.py -d -i <input_file> -o <output_file> -k <key_file>
 ```
 
 ```bash
 # Crack a file
-python vernam.py -a -i <input_file> -o <output_file>
+python3 vernam.py -a -i <input_file> -o <output_file>
 ```
