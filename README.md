@@ -2,8 +2,8 @@
 
 ## Team members
 
-- **Frippiat Gabriel**
-- **Sermeus Steven**
+- **Frippiat Gabriel** : etu55347
+- **Sermeus Steven**: etu44050
 
 ## How to run the project
 
@@ -38,6 +38,10 @@ pip install -r requirements.txt
 
 source .venv/bin/activate
 
+# Need help ?
+
+python3 vernam.py -h
+
 # Encrypt a file
 
 python3 vernam.py  -e -i <input_file> -o <output_file> -k <key_file>
@@ -52,4 +56,18 @@ python3 vernam.py -d -i <input_file> -o <output_file> -k <key_file>
 ```bash
 # Crack a file
 python3 vernam.py -a -i <input_file> -o <output_file>
+```
+
+## Attack
+
+If the value of the key found is not correct, you can try to change the depth (The size of the text read from the file) with the --depth option (Default is 100).
+
+```bash
+python3 vernam.py -a -i <input_file> -o <output_file> --depth <depth>
+```
+
+Or you can change the size of the n-grams with the -n option (Default is 3) used of the kasiski method.
+
+```bash
+python3 vernam.py -a -i <input_file> -o <output_file> -n <n>
 ```
