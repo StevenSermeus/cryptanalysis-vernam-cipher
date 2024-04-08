@@ -44,18 +44,18 @@ python3 vernam.py -h
 
 # Encrypt a file
 
-python3 vernam.py  -e -i <input_file> -o <output_file> -k <key_file>
+python3 vernam.py --encrypt --in <input_file> --out <output_file> --key <key_file>
 ```
 
 ```bash
 # Decrypt a file
 
-python3 vernam.py -d -i <input_file> -o <output_file> -k <key_file>
+python3 vernam.py --decrypt --in <input_file> --out <output_file> --key <key_file>
 ```
 
 ```bash
 # Crack a file
-python3 vernam.py -a -i <input_file> -o <output_file>
+python3 vernam.py --attack --in <input_file> --out <output_file>
 ```
 
 ## Attack
